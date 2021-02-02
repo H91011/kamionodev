@@ -1,8 +1,8 @@
 
+const saveUser = 1
 
-const saveUSer = 1
 
 export {
-    saveUSer
+    saveUser
 
 }
