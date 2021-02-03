@@ -9,9 +9,7 @@ export default function () {
 
     return (
         <div>
-
-            { !isLogin && show.login ? <Login></Login> : null}
-
+            { isLogin ? <p>User Page</p> : show.login ? <Login /> : <Register />}
         </div>
     )
 }

@@ -1,22 +1,8 @@
-import { saveUser } from './actions'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import reducer from './reducer'
 
-let initialState = {
-    user: {},
-    kamioncuList: [],
-    isLogin: false,
-    show: {
-        login: true,
-    }
-}
+const store = createStore(reducer, applyMiddleware(thunk))
 
-export default function (state = initialState, action) {
-    switch (action) {
-        case saveUser:
-            return {
-                ...state,
-                ...action.user
-            }
 
-        default: return { ...state }
-    }
-}
+export { store } 
