@@ -38,6 +38,14 @@
 }
 */
 
-.alingButton{
-  float:inline-end
+.alingButton {
+  float: inline-end;
+}
+
+.ant-menu-item-active {
+  color: #000 !important;
+}
+
+.iconSize {
+  font-size: 24px;
 }

@@ -1,7 +1,9 @@
+/* eslint-disable import/no-anonymous-default-export */
 import Login from "./login"
 import Register from "./register"
+import UserPage from "./user"
 
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 
 export default function () {
 
@@ -9,7 +11,7 @@ export default function () {
 
     return (
         <div>
-            { isLogin ? <p>User Page</p> : show.login ? <Login /> : <Register />}
+                     { isLogin ? <UserPage /> : show.login ? <Login /> : <Register />}
         </div>
     )
 }

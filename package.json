@@ -28,6 +28,27 @@
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.js?(x)"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": [
+            "off",
+            {
+              "allowArray": false,
+              "allowArrowFunction": false,
+              "allowAnonymousClass": false,
+              "allowAnonymousFunction": false,
+              "allowCallExpression": false,
+              "allowLiteral": false,
+              "allowObject": false
+            }
+          ]
+        }
+      }
     ]
   },
   "browserslist": {
