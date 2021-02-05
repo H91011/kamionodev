@@ -6,6 +6,7 @@ const editKamioncu = 5;
 const addKamioncu = 6;
 const listKamioncu = 7;
 const getList = 8;
+const showPopover = 9;
 export {
   saveUser,
   loginFail,
@@ -14,5 +15,6 @@ export {
   editKamioncu,
   addKamioncu,
   listKamioncu,
-  getList
+  getList,
+  showPopover
 };

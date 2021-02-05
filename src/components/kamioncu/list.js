@@ -19,7 +19,7 @@ export default function() {
   const { toolTip, label, kamioncuList } = useSelector(state => ({
     toolTip: state.show.toolTip,
     label: state.show.label,
-    kamioncuList: state.kamioncuList
+    kamioncuList: state.kamioncu.list
   }));
   const data = kamioncuList.map(item => {
     const { first_name, last_name } = item;

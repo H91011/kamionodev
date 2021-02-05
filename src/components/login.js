@@ -72,7 +72,6 @@ export default function() {
               <a
                 style={{ fontSize: "10px", paddingRight: "10px" }}
                 onClick={() => {
-                  console.log("geldi", !show.login);
                   dispatch(changeForm(!show.login));
                 }}
               >

@@ -4,18 +4,26 @@ import {
   formSwitch,
   showToolTip,
   listKamioncu,
-  getList
+  getList,
+  showPopover,
+  addKamioncu
 } from "../actions/type";
 
 let initialState = {
   user: {},
-  kamioncuList: [],
+  kamioncu: {
+    list: [],
+    add: false,
+    edit: false
+  },
   getList: true,
   isLogin: false,
   loginFail: {},
   show: {
     login: true,
-    toolTip: false
+    toolTip: false,
+    addPopover: false,
+    editPopover: false
   }
 };
 
@@ -35,8 +43,6 @@ export default function(state = initialState, action) {
       };
 
     case loginFail:
-      console.log("action: loginfail");
-
       return {
         ...state,
         isLogin: false,
@@ -44,29 +50,48 @@ export default function(state = initialState, action) {
       };
 
     case formSwitch:
-      console.log("action: formswitch");
       return {
         ...state,
         show: { ...state.show, login: action.show }
       };
 
     case showToolTip:
-      console.log("action: showToolTip", action);
       return {
         ...state,
         show: { ...state.show, toolTip: action.toolTip, label: action.label }
       };
 
+    case addKamioncu:
+      return {
+        ...state,
+        kamioncu: {
+          ...state.kamioncu,
+          ...action.values
+        }
+      };
+
     case listKamioncu:
       return {
         ...state,
-        kamioncuList: action.kamioncuList
+        kamioncu: {
+          ...state.kamioncu,
+          ...action.kamioncu
+        }
       };
 
     case getList:
       return {
         ...state,
         getList: action.getList
+      };
+
+    case showPopover:
+      return {
+        ...state,
+        show: {
+          ...state.show,
+          ...action.value
+        }
       };
 
     default:

@@ -6,7 +6,8 @@ import {
   editKamioncu,
   addKamioncu,
   listKamioncu,
-  getList
+  getList,
+  showPopover
 } from "./type";
 import axios from "axios";
 
@@ -54,8 +55,23 @@ const showToolTipLabel = values => dispatch => {
   dispatch({ type: showToolTip, ...values });
 };
 
-const addKamioncuUser = values => dispatch => {
-  dispatch({ type: addKamioncu, ...values });
+const addKamioncuUser = (token, values) => dispatch => {
+  // dispatch({ type: addKamioncu, values });
+  axios
+    .post(baseUri + apiCall.add, values, {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    })
+    .then(function(response) {
+      console.log(response);
+      dispatch({
+        type: listKamioncu,
+        kamioncu: {
+          list: response.data.data.slice()
+        }
+      });
+    });
 };
 
 const listKamioncuUser = token => dispatch => {
@@ -69,7 +85,9 @@ const listKamioncuUser = token => dispatch => {
       console.log(response);
       dispatch({
         type: listKamioncu,
-        kamioncuList: response.data.data.slice()
+        kamioncu: {
+          list: response.data.data.slice()
+        }
       });
     });
 };
@@ -85,6 +103,10 @@ const editKamioncuUser = values => dispatch => {
   dispatch({ type: editKamioncu, ...values });
 };
 
+const showPopoverForm = value => dispatch => {
+  dispatch({ type: showPopover, value });
+};
+
 export {
   userLogin,
   changeForm,
@@ -92,5 +114,6 @@ export {
   editKamioncuUser,
   addKamioncuUser,
   listKamioncuUser,
-  getListKamioncu
+  getListKamioncu,
+  showPopoverForm
 };
