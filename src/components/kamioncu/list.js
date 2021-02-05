@@ -1,41 +1,86 @@
 import { Button, Row, Col, List, Space } from "antd";
-import { UserAddOutlined, EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
+
+import { useDispatch, useSelector } from "react-redux";
+import { showToolTipLabel } from "../../actions/actions";
+
+import Add from "./add";
+import Edit from "./edit";
 import Search from "./search.js";
 
 export default function() {
-  const data = [
-    "Racing car sprays burning fuel into crowd.",
-    "Japanese princess to wed commoner.",
-    "Australian walks 100km after outback crash.",
-    "Man charged over missing wedding girl.",
-    "Los Angeles battles huge wildfires."
-  ];
+  const tooptipArr = {
+    add: "Kamioncu eklemek için tıklayınız.",
+    edit: "Tıkladıktan sonra listeden seçerek düzenleyebilirsiniz",
+    search: "Ad veya numara arayabilirsiniz.",
+    kamioncu: "Kamioncu detayını görmek tıklayınız."
+  };
+
+  const { toolTip, label, kamioncuList } = useSelector(state => ({
+    toolTip: state.show.toolTip,
+    label: state.show.label,
+    kamioncuList: state.kamioncuList
+  }));
+  const data = kamioncuList.map(item => {
+    const { first_name, last_name } = item;
+    return `${first_name} ${last_name}`;
+  });
+
+  const dispatch = useDispatch();
+
+  const mouseEnter = event => {
+    let id = event.target.id;
+    dispatch(showToolTipLabel({ toolTip: true, label: id }));
+  };
+
+  const mouseLeave = event => {
+    dispatch(showToolTipLabel({ toolTip: false }));
+  };
+
   return (
     <List
       grid={{ gutter: 16, column: 1 }}
       header={
         <Row>
-          <Col style={{ textAlign: "end" }} span={24}>
+          <Col span={12} style={{ height: "32px" }}>
+            <Space direction="horizontal" span={24}>
+              {toolTip ? (
+                <p
+                  style={{
+                    marginTop: "5px",
+                    marginLeft: "5px",
+                    fontStyle: "italic"
+                  }}
+                >
+                  {tooptipArr[label]}
+                </p>
+              ) : null}
+            </Space>
+          </Col>
+          <Col span={12} style={{ textAlign: "end" }}>
             <Space direction="horizontal">
-              <Search />
-              <Button style={{ width: "60px" }}>
-                {" "}
-                <UserAddOutlined className={"iconSize"} />{" "}
-              </Button>
-              <Button style={{ width: "60px" }}>
-                <EditOutlined className={"iconSize"} />
-              </Button>
+              <Search mouseEnter={mouseEnter} mouseLeave={mouseEnter} />
+              <Add mouseEnter={mouseEnter} mouseLeave={mouseEnter} />
+              <Edit mouseEnter={mouseEnter} mouseLeave={mouseEnter} />
             </Space>
           </Col>
         </Row>
       }
       bordered
       dataSource={data}
-      renderItem={item => (
-        <List.Item span={24}>
-          <Button style={{ width: "100%" }}>{item}</Button>
-        </List.Item>
-      )}
+      renderItem={(item, index) => {
+        return (
+          <List.Item span={24}>
+            <Button
+              id={`kamioncu${index}`}
+              onMouseEnter={mouseEnter}
+              style={{ width: "100%" }}
+            >
+              {item}
+            </Button>
+          </List.Item>
+        );
+      }}
     />
   );
 }

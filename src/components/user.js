@@ -1,14 +1,7 @@
 import { Layout, Menu, Button, Row, Col } from "antd";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UserAddOutlined,
-  EditOutlined
-} from "@ant-design/icons";
 import Kamion from "./kamioncu/kamion";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 export default function() {
   return (
